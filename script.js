@@ -10,6 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const msgBox = document.getElementById('signupMsg');
   const btn = form.querySelector('button[type="submit"]');
 
+  // sayfa ilk açıldığında kutucukları temizle
+form.reset();
+['fname','lname','email','password'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.value = '';
+    el.setAttribute('autocomplete', 'off');
+  }
+});
+
+// bfcache (geri gelme) durumunda da temizle
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) {
+    form.reset();
+    ['fname','lname','email','password'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    // uyarı kutusunu da kapat
+    if (msgBox) { msgBox.textContent = ''; msgBox.classList.add('d-none'); }
+  }
+});
+
+// uyarı kutusu açık kalmışsa gizle
+if (msgBox) { msgBox.textContent = ''; msgBox.classList.add('d-none'); }
+
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault(); //URL’e query eklemeyi durdurdu
 
