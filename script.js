@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
 // LOGIN 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
@@ -78,46 +77,45 @@ document.addEventListener('DOMContentLoaded', () => {
   localStorage.setItem('authOk', 'false');
 
   const email = document.getElementById('email');
-  const pass = document.getElementById('password');
-  const msg = document.getElementById('loginMsg');
-  const btn = form.querySelector('button[type="submit"]');
+  const pass  = document.getElementById('password');
+  const msg   = document.getElementById('loginMsg');
+  const btn   = form.querySelector('button[type="submit"]');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault(); e.stopPropagation();
 
     const emailVal = (email?.value || '').trim().toLowerCase();
-    const passVal = pass?.value || '';
-    if (!emailVal || !passVal) return show('Kullanıcı adı veya şifre hatalı', false);
+    const passVal  = pass?.value || '';
+    if (!emailVal || !passVal) { return show('Kullanıcı adı veya şifre hatalı', false); }
 
     try {
       setLoading(true);
 
-      const res = await fetch('https://reqres.in/api/login', {
+      const res  = await fetch('https://reqres.in/api/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        headers: { 'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'x-api-key': 'reqres-free-v1'
-        },
+          'x-api-key': 'reqres-free-v1' },
         body: JSON.stringify({ email: emailVal, password: passVal })
       });
 
-      const raw = await res.text();
-      let data = {}; try { data = raw ? JSON.parse(raw) : {}; } catch { }
+      const raw  = await res.text();
+      let data = {}; try { data = raw ? JSON.parse(raw) : {}; } catch {}
+      const okFromApi  = res.status === 200 && typeof data.token === 'string' && data.token.length > 0;
+      const okFromCred = (emailVal === 'eve.holt@reqres.in' && passVal === 'cityslicka'); // DEMO zorunluluğu
 
-      const okFromApi = res.status === 200 && typeof data.token === 'string' && data.token.length > 0;
+      console.log('[login] status:', res.status, 'data:', data, { okFromApi, okFromCred });
 
-      if (okFromApi) {
+      if (okFromApi && okFromCred) {
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('authOk', 'true');
         show('Giriş başarılı ✅ yönlendiriliyor...', true);
         setTimeout(() => location.replace('weather.html'), 500);
-        return;
+      } else {
+        localStorage.removeItem('authToken');
+        localStorage.setItem('authOk', 'false');
+        show('Kullanıcı adı veya şifre hatalı', false);
       }
-
-      localStorage.removeItem('authToken');
-      localStorage.setItem('authOk', 'false');
-      show('Kullanıcı adı veya şifre hatalı', false);
 
     } catch (err) {
       console.error(err);
@@ -141,8 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     msg.classList.add('alert', ok ? 'alert-success' : 'alert-danger');
   }
 });
-
-
 
 // WEATHER
 
