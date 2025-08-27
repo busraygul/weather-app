@@ -1,28 +1,16 @@
-🌤️ Login-Weather App
-<img src="logo.png" alt="Proje Logosu" width="120"/>
+🌤️ Weather App
 
-Bu proje JavaScript, HTML ve CSS ile geliştirilmiş basit bir kayıt → giriş → hava durumu uygulamasıdır.
+Bu proje JavaScript, HTML ve CSS ile geliştirilmiş basit bir Kayıt → Giriş → Hava Durumu uygulamasıdır.
 Kullanıcı önce kayıt olur, giriş yapar, ardından şehir yazarak OpenWeather üzerinden anlık hava durumunu görüntüler. Giriş sonrası token localStorage’da saklanır; Log out ile temizlenir.
 
 🚀 Canlı Demo
 
 👉 [Projeyi buradan çalıştır](https://busraygul.github.io/weather-app/)
 
-⚙️ Özellikler
+Log In:
+email: eve.holt@reqres.in
+password: cityslicka
 
-Sign Up: POST https://reqres.in/api/register
-– Başarılı/başarısız uyarıları
-
-Log In: POST https://reqres.in/api/login
-– Başarılı yanıtla dönen token localStorage’a yazılır (authToken + authOk='true')
-
-Guard: weather.html yalnızca giriş sonrası erişilebilir
-
-Hava durumu: OpenWeather’dan şehir adına göre sıcaklık (°C), açıklama, ikon
-
-Log out: Token temizlenir ve login sayfasına yönlendirilir
-
-Responsive sade arayüz (Bootstrap 5 + minimal CSS)
 
 🛠️ Kullanılan Teknolojiler
 
@@ -38,9 +26,9 @@ Reqres
 
 Uygulama Görselleri
 ![Log In](login.png)
-![Weather Form](weather.png)
 ![Sign Up](signup.png)
-![Weather Result](showWeather.png)
+![Weather Form](weather.png)
+![Weather Result](showWeathear.png)
 
 
 
